@@ -1,14 +1,15 @@
 from django.test import TestCase
-from.models import Category
+from.models import Category, Product
 
 
-class TestCategory(TestCase):
-
+class CategoryModelTests(TestCase):
     def test_category_model(self):
-        """
-        Test the Category model.
-        """
-        category = Category(name='Test Category', slug='test-category')
-        assert category.name == 'Test Category'
-        assert category.slug == 'test-category'
-        assert str(category) == 'Test Category'
+        category = Category(name='Test Category')
+        self.assertEqual(str(category), 'Test Category')
+
+
+class ProductModelTests(TestCase):
+    def test_product_model(self):
+        category = Category.objects.create(name='Test Category')
+        product = Product(name='Test Product', category=category)
+        self.assertEqual(str(product), 'Test Product')
